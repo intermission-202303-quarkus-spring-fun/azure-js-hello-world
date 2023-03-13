@@ -14,8 +14,11 @@ az group create --name "$RESOURCE_GROUP" --location "$REGION"
 az storage account create --name "$RESOURCE_GROUP" --location "$REGION" --resource-group "$RESOURCE_GROUP" --sku Standard_LRS
 az functionapp create --resource-group "$RESOURCE_GROUP" --consumption-plan-location="$REGION" --runtime node \
     --runtime-version 18 --functions-version 4 --name "$APP_NAME" --storage-account "$RESOURCE_GROUP"
+
+sleep 5
+
 func azure functionapp publish "$APP_NAME"
 
-az functionapp config appsettings set --name "$APP_NAME" \
+sleep 5
 --resource-group "$RESOURCE_GROUP" \
 --settings SCALE_CONTROLLER_LOGGING_ENABLED=AppInsights:Verbose
